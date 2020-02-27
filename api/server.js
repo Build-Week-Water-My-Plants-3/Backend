@@ -5,7 +5,7 @@ const cors = require('cors');
 
 // express routes 
 const authRouter = require('../auth/authRouter.js');
-// const usersRouter = require('../users/usersRouter.js'); 
+const usersRouter = require('../users/usersRouter.js'); 
 
 
 // tokens 
@@ -19,7 +19,7 @@ server.use(cors());
 // routes
 server.use('/', authRouter);  // leads to /register /login /userhome  etc 
 
-// server.use('/users', usersRouter); 
+server.use('/users', usersRouter);  // leads to /all
     // don't really need, but used to the set up.
 
 server.get('/testing', (req, res) => {
@@ -33,15 +33,11 @@ server.get('/testing-token', (req, res) => {
         userid: 'testytessa',
         favoritePlant: 'Rose'
     };
-
     const secret = "not your cup of tea";
-
     const options = {
         expiresIn: '1d'
     };
-
     const token = jwt.sign(payload, secret, options);
-
     res.json(token);
     });
 
