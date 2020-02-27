@@ -1,4 +1,4 @@
-const db = requires('../database/dbConfig.js');
+const db = require('../database/dbConfig.js');
 
 
 // create(add) read(find, findby, findbyid) update(update) delete (remove)

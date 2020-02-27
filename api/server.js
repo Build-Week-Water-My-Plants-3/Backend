@@ -4,12 +4,12 @@ const cors = require('cors');
 
 
 // express routes 
-// const authRouter = require('../auth/authRouter.js');
+const authRouter = require('../auth/authRouter.js');
 // const usersRouter = require('../users/usersRouter.js'); 
 
 
 // tokens 
-// const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');  // for testertoken 
 
 const server = express();
 server.use(helmet());
@@ -17,33 +17,33 @@ server.use(express.json());
 server.use(cors());
 
 // routes
-// server.use('/', authRouter);  // leads to /register /login /userhome  etc 
+server.use('/', authRouter);  // leads to /register /login /userhome  etc 
 
 // server.use('/users', usersRouter); 
     // don't really need, but used to the set up.
 
 server.get('/testing', (req, res) => {
     res.send(" Water My Plants 🌻");
-});  // testing base of localhost. before adding end points. 
+});  // testing base of localhost. before adding end points.   √√√ 
 
-// // testing token 
-// server.get('/testing-token', (req, res) => {
-//     const payload = {
-//         subject: 'testtoken',
-//         userid: 'testytessa',
-//         favoritePlant: 'Rose'
-//     };
+// // tester token  √√√ 
+server.get('/testing-token', (req, res) => {
+    const payload = {
+        subject: 'testtoken',
+        userid: 'testytessa',
+        favoritePlant: 'Rose'
+    };
 
-//     const secret = "not your cup of tea";
+    const secret = "not your cup of tea";
 
-//     const options = {
-//         expiresIn: '1d'
-//     };
+    const options = {
+        expiresIn: '1d'
+    };
 
-//     const token = jwt.sign(payload, secret, options);
+    const token = jwt.sign(payload, secret, options);
 
-//     res.json(token);
-//     });
+    res.json(token);
+    });
 
 module.exports = server; 
 
