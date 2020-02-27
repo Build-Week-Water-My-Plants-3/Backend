@@ -1,6 +1,7 @@
 // using tokens, not session/cookies
 
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs'); 
 const secret = require('../config/secrets');
 
 module.exports = ( req, res, next ) => {

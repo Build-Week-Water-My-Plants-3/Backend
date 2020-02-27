@@ -1,5 +1,5 @@
 const express = require('express');
-const db = require('../users/usersHelper.js');
+const Users = require('../users/usersHelper.js');
 const router = express.Router();
 
 //authentication  
@@ -8,8 +8,8 @@ const jwt = require('jsonwebtoken');  //token
 const secret = require('../config/secrets.js'); // secret 
 
 // server.js ->  server.use('/', authRouter); 
-router.get('/register', (req, res) => {
-    let user = req.body;  // username, password, email/phone# ! imgURL for stretch
+router.post('/register', (req, res) => {
+    let user = req.body;  // username, password
 
     const hash = bcrypt.hashSync(user.password, 10);  //258 
     user.password = hash;
@@ -24,11 +24,11 @@ router.get('/register', (req, res) => {
                 message: ' Failed to register a new user.'
             });
         });
-});
+}); 
 
 
 //  /login 
-router.post('login', (req, res) => {
+router.post('/login', (req, res) => {
     let { username, password} = req.body;  //postman raw JSON
 
     Users.findBy({ username })
@@ -55,13 +55,10 @@ function generateToken(user) {
         subject: user.id,
         username: user.username,
     };
-
     const options = {
         expiresIn: '1d',
     }
-
     const token = jwt.sign(payload, secret.jwtSecret, options);
-
     return token; 
 }
 

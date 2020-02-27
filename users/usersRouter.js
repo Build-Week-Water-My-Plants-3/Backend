@@ -1,13 +1,13 @@
 const express = require('express');
-const bcrypt = require('bcryptjs');
+// const bcrypt = require('bcryptjs');
 const usersDB = require('./usersHelper');
 
-const restricted = require=('./restrictedToken.js');
+const restricted = require('./restrictedToken'); 
 const router = express.Router();
 
 
-// server.js -> server.use('/users', usersRouter);   // witout mw    // w/ mw 
-router.get('/all', (req, res) => {
+// server.js -> server.use('/users', usersRouter);   // witout mw √√    // w/ √√ mw 
+router.get('/all', restricted, (req, res) => {
     usersDB.find()
         .then(allusers => {
             res.status(200).json(allusers);

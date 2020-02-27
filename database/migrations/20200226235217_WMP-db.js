@@ -11,8 +11,7 @@ exports.up = function(knex) {
                 .notNullable(); 
             tbl.decimal('phone number', 10) 
             //1234567890 does this need to be unsigned? or changed to a string? 
-                .unique()
-                .notNullable();
+                .unique();
         }))
         .createTable('plants', tbl => {
             tbl.increments();
