@@ -2,11 +2,11 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const usersDB = require('./usersHelper');
 
-const restricted = require=('./userMiddleWare');
+const restricted = require=('./restrictedToken.js');
 const router = express.Router();
 
 
-// server.js -> server.use('/users', usersRouter);   // witout mw  // w/ mw 
+// server.js -> server.use('/users', usersRouter);   // witout mw    // w/ mw 
 router.get('/all', (req, res) => {
     usersDB.find()
         .then(allusers => {
