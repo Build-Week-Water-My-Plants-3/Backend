@@ -6,7 +6,7 @@ exports.up = function(knex) {
             tbl.string('username', 128)
                 .unique()
                 .notNullable();
-            tbl.integer('phone number', 10) 
+            tbl.decimal('phone number', 10) 
             //1234567890 does this need to be unsigned? or changed to a string? 
                 .unique()
                 .notNullable();
@@ -21,10 +21,12 @@ exports.up = function(knex) {
             tbl.string('h2o amount', 128)
                 // is this set correctly? 
                 .notNullable();
-            tbl.integer('user_id')
-                .unsigned()
-                .notNullabel()
-                .reference('users.id'); 
+            tbl.integer('user_id') // name 
+                .unsigned()         
+                .notNullable()
+                .references('users.id')  // table.place 
+                .onDelete('CASCADE')
+                .onUpdate('CASCADE');
         })
 };
 
