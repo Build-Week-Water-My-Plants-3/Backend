@@ -15,11 +15,10 @@ module.exports = {
 function find(){ 
     return db('users').select('id', 'username', 'password');
 }
-// do I need to add email/phone to this list? 
+// do I need to add email/phone to this list?  No..
 
 
 function findBy(filter) {
-    console.log(filter);
     return db('users').where(filter);
 }
 
