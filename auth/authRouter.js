@@ -92,6 +92,47 @@ router.post('/logout', (req, res) => {
     }
 });
 
+// /edituser/:id   √√√ 
+router.put('/edituser/:id', (req, res) => {
+    const changes = req.body;
+    const {id} = req.params;
+    if(!changes.name && !changes.password) {
+        res.status(400).json({ message: ' You must specify the username or password.'})
+    } else {
+        Users.update(id, changes) 
+            .then(updated => {
+                if (updated === null) {
+                    res.status(404).json({ message: ` A user with id #${id} was not found.`})
+                } else {
+                    res.json(200).json(updated);
+                }
+            })
+            .catch(error => {
+                console.log('error', error);
+                res.status(500).json({ message: ' We were unable to update the user or password', error})
+            })
+    }
+});
+
+//  /deleteuser √√√ 
+
+router.delete('/deleteuser/:id', (req, res) => {
+    const id = req.params.id;
+
+    Users.remove(id) 
+        .then(deletedUser => {
+            if (!id) {
+                res.status(404).json({ message: ' The user with the specific ID does not exist.'});
+            } else {
+                res.status(200).json({ deletedUser});
+            }
+        })
+    .catch(error => {
+        console.log("error", error);
+        res.status(500).json({ message: ' The user could not be removed'});
+    })
+})
+
 function generateToken(user) {
     const payload = { 
         subject: user.id,
