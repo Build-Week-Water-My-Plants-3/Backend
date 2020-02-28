@@ -104,7 +104,7 @@ router.put('/edituser/:id', (req, res) => {
                 if (updated === null) {
                     res.status(404).json({ message: ` A user with id #${id} was not found.`})
                 } else {
-                    res.json(200).json(updated);
+                    res.status(200).json(updated);
                 }
             })
             .catch(error => {

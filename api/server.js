@@ -6,6 +6,7 @@ const cors = require('cors');
 // express routes 
 const authRouter = require('../auth/authRouter.js');
 const usersRouter = require('../users/usersRouter.js'); 
+const plantsRouter = require('../plants/plantsRouter.js');
 
 
 // tokens 
@@ -18,6 +19,8 @@ server.use(cors());
 
 // routes
 server.use('/', authRouter);  // leads to /register /login /userhome  etc 
+
+server.use('/plants', plantsRouter);  // this may be a problem 
 
 server.use('/users', usersRouter);  // leads to /all
     // don't really need, but used to the set up.

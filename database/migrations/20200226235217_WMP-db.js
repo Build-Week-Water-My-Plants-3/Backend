@@ -15,12 +15,12 @@ exports.up = function(knex) {
         }))
         .createTable('plants', tbl => {
             tbl.increments();
-            tbl.string('speices name', 128)   
+            tbl.string('species_name', 128)   
                 //not unique, may have more than one of a plant, ex:succlents 
                 .notNullable();
             tbl.string('nickname', 128)
                 .notNullable();
-            tbl.string('h2o amount', 128)
+            tbl.string('h2o_amount', 128)
                 // is this set correctly? 
                 .notNullable();
             tbl.integer('user_id') // name 
