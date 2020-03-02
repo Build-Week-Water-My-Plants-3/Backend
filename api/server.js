@@ -41,7 +41,7 @@ server.get('/testing-token', (req, res) => {
         expiresIn: '1d'
     };
     const token = jwt.sign(payload, secret, options);
-    res.json(token);
+    res.status(201).json({message: 'Testing Token,', token: token});
     });
 
 module.exports = server; 
