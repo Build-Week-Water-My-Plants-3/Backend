@@ -26,7 +26,7 @@ module.exports = {
       filename: './database/test.db3',
     },
     migrations: {
-      directory: './dtabase/migrations',
+      directory: './database/migrations',
     },
     seeds: {
       directory: './database/seeds',
