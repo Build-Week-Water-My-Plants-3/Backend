@@ -3,13 +3,13 @@ const Users = require('./usersHelper.js');
 const bcrypt = require('bcryptjs'); 
 
 
-// 
+// √√ 
 describe('users helper', () => {
+    beforeEach(async () => {
+        await db('users').truncate();
+    }); 
     // √√ 
     describe('add(user)', () => {
-        beforeEach(async () => {
-            await db('users').truncate();
-        })
         it('should add 2 users into the database', async () => { 
             await Users.add({
                 username: "leotherabbit",
