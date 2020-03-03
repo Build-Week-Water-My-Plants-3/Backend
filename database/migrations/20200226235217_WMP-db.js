@@ -9,7 +9,7 @@ exports.up = function(knex) {
             tbl.string('password', 128)
                 .unique()
                 .notNullable(); 
-            tbl.decimal('phone number', 10) 
+            tbl.decimal('phone_number', 10) 
             //1234567890 does this need to be unsigned? or changed to a string? 
                 .unique();
         }))

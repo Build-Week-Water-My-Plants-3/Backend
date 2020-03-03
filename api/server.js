@@ -26,7 +26,7 @@ server.use('/users', usersRouter);  // leads to /all
     // don't really need, but used to the set up.
 
 server.get('/testing', (req, res) => {
-    res.send(" Water My Plants 🌻");
+    res.status(200).json({ message:" Water My Plants 🌻"});
 });  // testing base of localhost. before adding end points.   √√√ 
 
 // // tester token  √√√ 
@@ -41,7 +41,7 @@ server.get('/testing-token', (req, res) => {
         expiresIn: '1d'
     };
     const token = jwt.sign(payload, secret, options);
-    res.json(token);
+    res.status(201).json({message: 'Testing Token,', token: token});
     });
 
 module.exports = server; 
