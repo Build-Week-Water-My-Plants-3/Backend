@@ -6,6 +6,7 @@ const Users = require('../users/usersHelper.js');
 const bcrypt = require('bcryptjs');  //hashing of password 
 const jwt = require('jsonwebtoken');  //token 
 const secret = require('../config/secrets.js'); // secret 
+const restricted = require("../users/restrictedToken.js"); 
 
 // server.js ->  server.use('/', authRouter); 
 router.post('/register', (req, res) => {
@@ -75,6 +76,25 @@ router.post('/login', (req, res) => {
 //         });
 //});
 // keeping this here for a mental note, it's okay to rewrite code instead of taking 30 mintues checking all your files and depencies. 
+
+// √√  endpoint example /6 
+router.get('/dashboard/:id', restricted, (req, res) => {
+    const [id] = req.params.id;
+
+    Users
+        .findById(id)
+        .then(user => {
+            if (id) {
+                res.status(200).json({message: ` Hello ${user.username}`, user: user});
+            } else {
+                res.status(404).json({ message: ' No user found with that ID'});
+            }
+        })
+        .catch(error => {
+            console.log('error', error);
+            res.status(500).json({ message: "The user information could not be found."});
+        });
+});
 
 // /logout  √√√  does not give a message/response, just empty. 
 
