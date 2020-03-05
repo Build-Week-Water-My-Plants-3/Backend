@@ -18,4 +18,22 @@ router.get('/all', restricted, (req, res) => {
         });
 });
 
+router.get('/:id', restricted, (req, res) => {
+    const [id] = req.params.id;
+
+    usersDB
+        .findById(id)
+        .then(user => {
+            if (id) {
+                res.status(200).json({message: ` Hello ${user.username}`, user: user});
+            } else {
+                res.status(404).json({ message: ' No user found with that ID'});
+            }
+        })
+        .catch(error => {
+            console.log('error', error);
+            res.status(500).json({ message: "The user information could not be found."});
+        });
+});
+
 module.exports = router; 
