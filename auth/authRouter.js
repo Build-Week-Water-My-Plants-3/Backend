@@ -114,16 +114,27 @@ router.post('/logout', (req, res) => {
 
 // /edituser/:id   √√√ 
 router.put('/edituser/:id', (req, res) => {
-    const changes = req.body;
+    let changes = req.body; 
     const {id} = req.params;
+    
+
+    if(changes.password) {
+        changes.password = bcrypt.hashSync(changes.password, 10);
+    }
+    
+    console.log(changes); // username, password(hashed? Nope), phone_number 
+
     if(!changes.username && !changes.password && !changes.phone_number) {
-        res.status(400).json({ message: ' You must specify the username or password.'})
+        res.status(400).json({ message: ' You must specify the username, password or phone number.'})
     } else {
         Users.update(id, changes) 
+        // console.log("changes after .update", changes)
             .then(updated => {
                 if (updated === null) {
+                    console.log(" after null", changes); 
                     res.status(404).json({ message: ` A user with id #${id} was not found.`})
                 } else {
+                    console.log(" after else", changes); //not hashed 
                     res.status(200).json({message: `user ${changes.username} has been updated`, updated: updated });
                 }
             })
