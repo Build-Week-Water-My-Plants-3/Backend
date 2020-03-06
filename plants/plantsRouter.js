@@ -39,8 +39,8 @@ router.post('/new', (req, res) => {
 // //editplant
 router.put('/edit/:id', (req, res) => {
     const changes = req.body;
-    const {id} = req.params; 
-    if(!changes.species_name && !changes.nickname) {
+    const id = req.params.id; 
+    if(!changes.species_name && !changes.nickname && !changes.h2o_amount && !changes.user_id) {
         res.status(400).json({ message: ' You must specify the species_name and nickname.'})
     } else {
         Plants.update(id, changes) 
@@ -48,7 +48,7 @@ router.put('/edit/:id', (req, res) => {
                 if (updated === null) {
                     res.status(400).json({ message: ` A plant with id ${id} was not found.`})
                 } else {
-                    res.status(200).json(updated);
+                    res.status(200).json({message: "Your plant was updated.", updated: updated, changes: changes});
                 }
             })
             .catch(error => {
@@ -69,7 +69,7 @@ router.delete('/delete/:id', (req, res) => {
             if (!id) {
                 res.status(400).json({ message: `The plant with id #${id} was not found.` });
             } else {
-                res.status(200).json({ deletedPlant });
+                res.status(200).json({ message: `Plant with the id of #${id} was deleted.`, deletedPlant: deletedPlant });
             }
         })
         .catch(error => {
