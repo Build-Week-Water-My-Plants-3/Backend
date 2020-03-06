@@ -18,6 +18,10 @@ router.get('/all', restricted, (req, res) => {
         });
 });
 
+
+// endpoint /users/:id 
+
+// √√ 
 router.get('/:id', restricted, (req, res) => {
     const [id] = req.params.id;
 
