@@ -116,7 +116,7 @@ router.post('/logout', (req, res) => {
 router.put('/edituser/:id', (req, res) => {
     const changes = req.body;
     const {id} = req.params;
-    if(!changes.name && !changes.password) {
+    if(!changes.username && !changes.password && !changes.phone_number) {
         res.status(400).json({ message: ' You must specify the username or password.'})
     } else {
         Users.update(id, changes) 
@@ -124,7 +124,7 @@ router.put('/edituser/:id', (req, res) => {
                 if (updated === null) {
                     res.status(404).json({ message: ` A user with id #${id} was not found.`})
                 } else {
-                    res.status(200).json(updated);
+                    res.status(200).json({message: `user ${changes.username} has been updated`, updated: updated });
                 }
             })
             .catch(error => {
