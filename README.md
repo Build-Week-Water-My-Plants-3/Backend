@@ -44,12 +44,12 @@ Login Endpoint /login
         token: // * save record of this, needs passed as an "authorization" header for protected routes. 
     }
 
-Get By Id Endpoint /dashboard/:id *(where user_id from records would go)
+Get By Id  endpoint /dashboard/:id     *(where user_id from records would go)
     Method: Get 
-    Expects ID passed into URL &
+    Expects: ID passed into URL &
     Headers: Authorization: token *(from records)
 
-    Returns 
+    Returns: 
     {
         message: Hello {username},
         user: {
@@ -67,17 +67,106 @@ Get By Id Endpoint /dashboard/:id *(where user_id from records would go)
 Edit User  endpoint /edituser/:id
     Method: PUT
     Expects: ID passed into URL & 
-    Body 
+    Body: 
     {
         username: //
         password: //
         phone_number: //
     }
-    Results 
+    Results: 
     {
         message: user {username} has been updated.
         updated: # 
     }
 
+Delete User endpoint /deleteuser/:id
+    Method: DELETE
+    Expects: ID in URL 
+    Returns 
+    {
+        deletedUser: 1 
+    }
+
+Get All Users (for testing purposes) endpoint /users/all
+    Method: GET 
+    Expects: 
+        Headers: Authorization: token *(from records)
+    Results: Array of Users, each user being an object {}.
 
 
+Plant Routes
+
+Get All  endpoint /plants/all
+    Method: GET
+    Expects:  
+        Headers: Authorization: token *(from records)
+    Results: Array of Plants, each plant being an object {}. 
+
+Add New Plant   endpoint /plants/new 
+    Method: POST
+    Expects: 
+    Body 
+    {
+        species_name: // string, mandatory
+        nickname:  // string, mandatory
+        h2o_amount: // string, mandatory
+        user_id: // number(foreign key), mandatory
+    }
+    Results: 
+    {
+        id: // #
+        species_name: // string
+        nickname: // string 
+    }
+
+Edit a Plant  endpoint /edit/:id
+    Method: PUT
+    Expects: ID (of plant) in URL &
+    Body: 
+    {
+       species_name: // 
+        nickname:  // 
+        h2o_amount: // 
+        user_id: // 
+    }
+    Results: 
+    {
+        message: Your plant was updated
+        updated: #
+        changes: 
+            {
+                species_name: //
+                nickname: //
+                h2o_amount: //
+                user_id: //
+            }
+    }
+
+Delete A Plant  endpoint /delete/:id 
+    Method: DELETE
+    Expects: ID(of plant) in the URL 
+    Results: 
+    {
+        message: Plant with the id of #7 was deleted.
+        deletedPlant: 1 
+    }
+
+
+Testing Routes 
+
+Get Title of Project endpoint /testing
+    Method: GET
+    Expects: nothing
+    Results: 
+    {
+        message: Water My Plants 🌻
+    }
+
+Get Testing Token endpoint /testing-token
+    Method: GET
+    Expects: nothing
+    Results: 
+    {
+        message: Testing Token
+        token: // token * (Cannot be used in authorization header because it's not linked to a user.)
+    }
